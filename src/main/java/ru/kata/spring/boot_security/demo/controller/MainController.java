@@ -25,13 +25,16 @@ public class MainController {
     @GetMapping("/admin")
     public String home(Model model, Principal principal) {
         model.addAttribute("users", profileService.getAllProfiles());
+        Profile profile = profileRepo.findByUsername(principal.getName());
+        model.addAttribute("user", profile);
         return "/admin";
     }
 
     @GetMapping("/user")
     public String home(Principal principal, Model model) {
         Profile profile = profileRepo.findByUsername(principal.getName());
-        model.addAttribute("profile", profile);
+        model.addAttribute("user", profile);
         return "/user";
     }
+
 }

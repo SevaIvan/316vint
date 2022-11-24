@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.entity.Profile;
+import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.repo.ProfileRepo;
 import ru.kata.spring.boot_security.demo.repo.RoleRepo;
 
@@ -35,7 +36,6 @@ public class ProfileService implements UserDetailsService {
                 tmpProfile.getAuthorities()
         );
     }
-
 
     public List<Profile> getAllProfiles() {
         return profileRepo.findAll();
