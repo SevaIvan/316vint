@@ -42,7 +42,7 @@ public class Profile implements UserDetails {
 
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public void addRole(Role role) {
