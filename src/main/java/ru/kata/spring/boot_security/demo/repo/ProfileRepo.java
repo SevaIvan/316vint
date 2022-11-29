@@ -8,4 +8,6 @@ import ru.kata.spring.boot_security.demo.entity.Profile;
 public interface ProfileRepo extends JpaRepository<Profile, Long> {
     public Profile getProfilesByLogin(String username);
 
+    public Profile getProfileById(Long id);
+
 }

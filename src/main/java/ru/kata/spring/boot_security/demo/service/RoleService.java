@@ -8,6 +8,7 @@ import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.repo.RoleRepo;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -37,6 +38,10 @@ public class RoleService {
 
     public Role getRole(String name) {
         return roleRepo.findRoleByName(name);
+    }
+
+    public List<Role> getAllRoles(){
+        return roleRepo.findAll();
     }
 
 }

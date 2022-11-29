@@ -35,8 +35,8 @@ public class ProfileService implements UserDetailsService {
         return profileRepo.findAll();
     }
 
-    public Optional<Profile> getUserById(Long id) {
-        return profileRepo.findById(id);
+    public Profile getUserById(Long id) {
+        return profileRepo.getProfileById(id);
     }
 
     public void saveProfile(Profile profile) {
