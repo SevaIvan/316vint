@@ -37,7 +37,7 @@ public class AdminRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/patch")
     public ResponseEntity<Void> updateProfile(@Valid @RequestBody Profile profile) {
         profileService.saveProfile(profile);
         return new ResponseEntity<>(HttpStatus.OK);

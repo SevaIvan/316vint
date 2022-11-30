@@ -200,8 +200,8 @@ export function updateCurrentUser(e) {
         },
         body: JSON.stringify({
             id: userEditForm.id.value,
-            name: userEditForm.name.value,
-            surname: userEditForm.surname.value,
+            firstName: userEditForm.firstName.value,
+            lastName: userEditForm.lastName.value,
             email: userEditForm.email.value,
             age: userEditForm.age.value,
             login: userEditForm.login.value,

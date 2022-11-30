@@ -1,5 +1,5 @@
-import {getOneUser} from "./functions.js";
+import {fullCurrentUserTable} from "./functions.js";
 
 window.onload = () => {
-    getOneUser()
+    fullCurrentUserTable()
 }
