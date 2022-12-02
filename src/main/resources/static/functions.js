@@ -192,8 +192,8 @@ export function updateCurrentUser(e) {
             })
         }
     }
-    let userEditForm = document.forms['editUserModalForm']
-    fetch(url + 'patch', {
+    let userEditForm = document.forms['editUserModalForm'];
+ fetch(url + 'patch', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -209,20 +209,22 @@ export function updateCurrentUser(e) {
             roles: editUserRoles
         })
     }).then((response) => {
-            if (response.ok) {
+        if (response.ok) {
                 fillUsersTable()
                 userEditForm.password.value = ''
                 document.getElementById('closeEditModalWindow').click()
                 getSuccessMessage('User has been updated!')
                 $('.nav-tabs a[href="#UserTable"]').tab('show')
             } else {
-                response.json()
-                    .then((res) => {
-                        getErrorMessage(res, userEditForm)
-                    })
+                getErrorMessage({
+                    "message": "Error. Enter valid data"
+                }, userEditForm)
             }
         }
-    )
+    ).catch((err) => {
+        console.log('test')
+
+    })
 }
 
 //функция удаления юзера
@@ -251,7 +253,6 @@ function getErrorMessage(errorJSON, form) {
              <br>
              `
     }
-    console.log(errorJSON.message)
     errorBody.innerHTML = errorBodyText
     form.password.value = ''
     $('#errorModal').modal('toggle')
