@@ -44,27 +44,50 @@ export function fillUsersTable() {
 //функция заполнения таблица текущего юзера
 export function fullCurrentUserTable() {
     const currentUserTableBody = document.getElementById('currentUserTableBody')
-    const currentUserLogin = document.getElementById('currentUserLogin')
-    const currentUserRoles = document.getElementById('currentUserRoles')
-    fetch(url + 'principal')
+    const currentUserLogin = document.getElementById('currentUserLogin').innerText;
+    //console.log(currentUserLogin)
+    // const currentUserRoles = document.getElementById('currentUserRoles')
+    fetch(url)
         .then(response => response.json())
         .then(data => {
-            let userRoles = data.roles.map(role => role.name.substring(5))
             let columnContent = ''
-            columnContent += `<tr>
-                    <td>${data.id}</td>
-                    <td>${data.firstName}</td>
-                    <td>${data.lastName}</td>
-                    <td>${data.email}</td>
-                    <td>${data.login}</td>
-                    <td>${data.age}</td>
-                    <td>${userRoles}</td>
-                </tr>
-                `
-            currentUserTableBody.innerHTML = columnContent
-            currentUserLogin.innerText = data.login
-            currentUserRoles.innerText = userRoles
+            data.forEach(element =>{
+                if (element.login == currentUserLogin) {
+                    columnContent += `<tr>
+                    <td>${element.id}</td>
+                    <td>${element.firstName}</td>
+                    <td>${element.lastName}</td>
+                    <td>${element.login}</td>
+                    <td>${element.email}</td>
+                    <td>${element.age}</td>
+                    <td>${element.roles.map(role => role.name.substring(5))}</td>
+                    </tr>`
+                }
+                currentUserTableBody.innerHTML = columnContent;
+                }
+
+
+            )
         })
+    // fetch(url)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         let userRoles = data.roles.map(role => role.name.substring(5))
+    //         let columnContent = ''
+    //         columnContent += `<tr>
+    //                 <td>${data.id}</td>
+    //                 <td>${data.firstName}</td>
+    //                 <td>${data.lastName}</td>
+    //                 <td>${data.email}</td>
+    //                 <td>${data.login}</td>
+    //                 <td>${data.age}</td>
+    //                 <td>${userRoles}</td>
+    //             </tr>
+    //             `
+    //         currentUserTableBody.innerHTML = columnContent
+    //         //currentUserLogin.innerText = data.login
+    //         //currentUserRoles.innerText = userRoles
+    //     })
 }
 
 //функция выбора ролей для нового юзера
@@ -129,10 +152,9 @@ export function createNewUser(e) {
                 getSuccessMessage('User has been created!')
                 $('.nav-tabs a[href="#UserTable"]').tab('show')
             } else {
-                response.json()
-                    .then((res) => {
-                        getErrorMessage(res, newUserForm)
-                    })
+                getErrorMessage({
+                    "message": "Error. Enter valid data"
+                }, newUserForm)
             }
         }
     )
@@ -216,10 +238,9 @@ export function updateCurrentUser(e) {
                 getSuccessMessage('User has been updated!')
                 $('.nav-tabs a[href="#UserTable"]').tab('show')
             } else {
-                response.json()
-                    .then((res) => {
-                        getErrorMessage(res, userEditForm)
-                    })
+                getErrorMessage({
+                    "message": "Error. Enter valid data"
+                }, userEditForm)
             }
         }
     )
@@ -251,7 +272,7 @@ function getErrorMessage(errorJSON, form) {
              <br>
              `
     }
-    console.log(errorJSON.message)
+    //console.log(errorJSON.message)
     errorBody.innerHTML = errorBodyText
     form.password.value = ''
     $('#errorModal').modal('toggle')

@@ -18,8 +18,8 @@ public class UserRestController {
 
     private final ProfileService profileService;
 
-    @GetMapping("/principal")
-    public ResponseEntity<Profile> showProfile(Principal principal) {
-        return new ResponseEntity<>(profileService.getUserByName(principal.getName()), HttpStatus.OK);
-    }
+//    @GetMapping("/principal")
+//    public ResponseEntity<Profile> showProfile(Principal principal) {
+//        return new ResponseEntity<>(profileService.getUserByName(principal.getName()), HttpStatus.OK);
+//    }
 }

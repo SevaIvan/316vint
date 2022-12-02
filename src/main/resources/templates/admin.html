@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,9 +14,9 @@
         <nav class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
                 <div class="navbar-brand">
-                    <a class="text-white" id="currentUserLogin"></a>
-                    <a> with roles:</a>
-                    <a id="currentUserRoles"></a>
+                    <a class="text-white" id="currentUserLogin" sec:authorize="isAuthenticated()" sec:authentication="principal.username">TEST</a>
+                    <a>  with roles:</a>
+                    <a id="currentUserRoles" sec:authorize="isAuthenticated()" sec:authentication="principal.authorities"></a>
                 </div>
                 <div class="navbar-brand">
                     <form th:method="post" th:action="@{/logout}" id="logoutForm">

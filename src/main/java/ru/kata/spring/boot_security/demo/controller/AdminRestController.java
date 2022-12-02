@@ -54,9 +54,9 @@ public class AdminRestController {
         return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
     }
 
-    @GetMapping("/header")
-    public ResponseEntity<Profile> getAuth(Principal principal) {
-        Profile profile = profileService.getUserByName(principal.getName());
-        return new ResponseEntity<>(profile, HttpStatus.OK);
-    }
+//    @GetMapping("/header")
+//    public ResponseEntity<Profile> getAuth(Principal principal) {
+//        Profile profile = profileService.getUserByName(principal.getName());
+//        return new ResponseEntity<>(profile, HttpStatus.OK);
+//    }
 }
