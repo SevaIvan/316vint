@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entity.Profile;
@@ -22,7 +23,9 @@ public class AdminRestController {
     private final ProfileService profileService;
     private final RoleService roleService;
 
-    @GetMapping()
+    private final PasswordEncoder passwordEncoder;
+
+    @GetMapping
     public ResponseEntity<List<Profile>> showAllUsers(){
         return new ResponseEntity<>(profileService.getAllUsers(), HttpStatus.OK);
     }
@@ -32,7 +35,7 @@ public class AdminRestController {
         return new ResponseEntity<Profile>(profileService.getUserById(id), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Void> createProfile(@Valid @RequestBody Profile profile) {
         profileService.saveProfile(profile);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -4,23 +4,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.entity.Profile;
 import ru.kata.spring.boot_security.demo.repo.ProfileRepo;
 import ru.kata.spring.boot_security.demo.repo.RoleRepo;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProfileService implements UserDetailsService {
-
-    @Autowired
     private ProfileRepo profileRepo;
+    private RoleRepo roleRepo;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private RoleRepo roleRepo;
-
+    public ProfileService(ProfileRepo profileRepo, RoleRepo roleRepo, PasswordEncoder passwordEncoder) {
+        this.profileRepo = profileRepo;
+        this.roleRepo = roleRepo;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -40,6 +43,8 @@ public class ProfileService implements UserDetailsService {
     }
 
     public void saveProfile(Profile profile) {
+        profile.setPassword(passwordEncoder.encode(profile.getPassword()));
+        System.out.println(profile.getPassword());
         profileRepo.save(profile);
     }
 
